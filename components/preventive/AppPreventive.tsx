@@ -31,10 +31,10 @@ const handleChange: SubmitHandler<FieldValues> = async (data) =>{
    await SendPreventiveRequestemail(dataEmail);
   
 }
-
+//preventiveForm
   return (
-    <div className="container-lg  preventiveForm">
-      <div className="row ">
+  
+      <div className="row preventiveForm">
         <form className="form-inline" onSubmit={handleSubmit(handleChange)}>
           <fieldset>
             <h2 className="TitleForm">Preventivo:</h2>
@@ -155,7 +155,7 @@ const handleChange: SubmitHandler<FieldValues> = async (data) =>{
           </fieldset>
         </form>
       </div>
-    </div>
+    
   );
 };
 
