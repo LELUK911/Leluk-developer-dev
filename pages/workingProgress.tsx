@@ -8,6 +8,8 @@ export default function workingProgress() {
     <>
     <Head>
         <title>Working Progress</title>
+        <meta name="Leluk Blockchain developer" content="Leanding page blockchain and web developer " lang="it en"/>
+
     </Head>
     <AppLayout>
       <div className="row justify-content-md-center image-div">

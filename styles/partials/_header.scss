@@ -32,7 +32,7 @@
 @media (max-width: 799px){
     
     .AppHeader{
-        position: static;
+        //position: static;
         .header-txt1{
             z-index: 1;
             //background-color: $primaryBackground;
@@ -45,7 +45,7 @@
             height:300px;
             position: absolute;
             top: 50px;
-            opacity: 0.4;
+            opacity: 0.2;
         }
     }
         

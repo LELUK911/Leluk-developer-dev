@@ -10,6 +10,8 @@ export default function service() {
     <>
     <Head>
         <title>Service</title>
+        <meta name="Leluk Blockchain developer" content="Leanding page blockchain and web developer " lang="it en"/>
+
     </Head>
     <AppLayout>
         <PageService/>

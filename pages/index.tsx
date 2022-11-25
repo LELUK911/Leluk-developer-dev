@@ -12,6 +12,8 @@ export default function Home() {
     
     <Head>
         <title>Leluk Dev</title>
+        <meta name="Leluk Blockchain developer" content="Leanding page blockchain and web developer " lang="it en"/>
+
     </Head>
     <AppLayout>
       <AppHeader/>
