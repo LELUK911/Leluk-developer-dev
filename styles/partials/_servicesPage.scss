@@ -1,0 +1,21 @@
+@import "../variables.scss";
+
+.servicePage {
+  padding-top: 100px;
+  .smSection {
+    color: whitesmoke;
+    background-color: $primaryColor;
+    .colCode1 {
+      padding: 30px;
+      pre {
+        padding: 10px;
+      }
+    }
+    .colDef1 {
+        padding-top: 80px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+}

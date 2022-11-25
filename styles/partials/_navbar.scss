@@ -1,0 +1,96 @@
+@import '../variables.scss';
+
+@media (min-width: 800px) {
+    
+    .nav-bar{
+        background-color:$primaryBackground;
+        margin-left: 10px;
+        margin-right: 100px;
+        padding: 10px;
+        margin: 10px;
+        color: $primaryColor;
+
+        
+            .homeLink{
+                color: $primaryColor;
+                text-decoration: none;
+              
+            }
+        
+    
+    }
+    
+    .nav-head{
+        ul{
+            .nav-item{
+                padding: 10px;
+                a{
+                    color: $dropDownColor;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 1000px) {
+    .nav-bar{
+        background-color:$primaryBackground;
+        margin-left: 10px;
+        //margin-right: 100px;
+        //padding: 10px;
+        margin: 10px;
+        color: $primaryColor;
+
+        .nav-row{
+            display: block;
+            align-items: flex-start;
+            .list-navBar{
+                display: block;
+                align-items: flex-start;
+                .nav-item{
+                    display: inline-flex;
+                }
+            }
+        }
+
+        h1{
+            color: $primaryColor;
+            .homeLink{
+                color: $primaryColor;
+                text-decoration: none;
+              
+            }
+      
+        }
+    
+    }
+    
+    .nav-head{
+        ul{
+            .nav-item{
+                padding: 10px;
+                a{
+                    color: $dropDownColor;
+                }
+            }
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+/* Medium devices (tablets, 768px and up) The navbar toggle appears at this breakpoint */
+@media (min-width: 768px) {}
+
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {}
+
+
+/* Extra large devices (large desktops, 1200px and up) */

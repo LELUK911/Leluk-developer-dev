@@ -1,0 +1,52 @@
+@import '../variables.scss';
+
+
+.AppHeader{
+
+    margin-top: 150px;
+
+    .header-txt1{
+        
+        padding-top: 60px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    h1{
+        color: $primaryColor;
+    }
+
+    span{
+        color: $secondaryColor;
+    }
+
+    .btn{
+        margin-top: 10px;
+        margin-left: 30px;
+        background-color: $primaryColor;
+        color: whitesmoke;
+    }
+}
+
+@media (max-width: 799px){
+    
+    .AppHeader{
+        position: static;
+        .header-txt1{
+            z-index: 1;
+            //background-color: $primaryBackground;
+            //background-image:url('../../public/images/header_image1.png');
+            
+        }
+        .header-img1{
+            padding: 30px;
+            width:300px;
+            height:300px;
+            position: absolute;
+            top: 50px;
+            opacity: 0.4;
+        }
+    }
+        
+}

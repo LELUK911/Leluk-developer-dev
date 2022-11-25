@@ -1,0 +1,58 @@
+@import '../variables.scss';
+
+
+.appFooter{
+    color: $footerColor;
+    background-color: $primaryColor;
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-top: 150px;
+
+    .col{
+
+        padding-left: 20px;
+     
+
+
+        h3{
+            font-size: 28px;
+            padding-top: 10px;
+        }
+    
+        .list-title{
+            font-size: 20px;
+            padding-top: 20PX;
+            margin-bottom: 10px;
+        }
+        
+        
+            .fa-stack {
+                width: 2em;
+                margin-bottom: 1.25rem;
+                margin-right: 0.375rem;
+                font-size: 1.375rem;
+    
+                .fa-stack-2x {
+                    color: #ffffff;
+                    transition: all 0.2s ease;
+                }
+    
+                .fa-stack-1x {
+                    color: $primaryBackground;
+                    transition: all 0.2s ease;
+                }
+    
+                &:hover {
+                    .fa-stack-2x {
+                        color: $primaryBackground;
+                    }
+                    .fa-stack-1x {
+                        color: #ffffff;
+                    }
+                }
+        }
+
+    }
+    
+
+}

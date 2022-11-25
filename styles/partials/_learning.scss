@@ -1,0 +1,59 @@
+@import "../variables.scss";
+
+
+    
+.learning-box{
+
+  margin-top: 0px;
+
+  .header-txt1{
+      padding-top: 60px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+  }
+
+  h1{
+      color: $primaryColor;
+  }
+
+  h4{
+      color: $secondaryColor;
+  }
+
+  
+}
+
+
+@media (max-width: 799px){
+    .learning-box{
+
+        margin-top: 0px;
+        .col-image{
+            position: absolute;
+            opacity: 0.2;
+        }
+        .textCol{
+            z-index: 1;
+        }
+      
+        .header-txt1{
+      
+            
+            padding-top: 60px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+      
+        h1{
+            color: $primaryColor;
+        }
+      
+        h4{
+            color: $secondaryColor;
+        }
+      
+        
+      }
+}

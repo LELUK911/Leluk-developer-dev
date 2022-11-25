@@ -1,0 +1,17 @@
+@import '../variables.scss';
+
+body{
+    background-color:$primaryBackground;
+
+    .btn{
+        margin-top: 10px;
+        
+        background-color: $primaryColor;
+        color: whitesmoke;
+        &:hover {
+          color: $linkColor;
+          text-decoration: underline;
+        }
+    }
+}
+

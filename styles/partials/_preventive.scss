@@ -1,0 +1,80 @@
+@import "../variables.scss";
+
+
+.preventiveForm{
+    background-color: $formEmailBackground;
+    padding: 50px;
+    margin-top: 150px;
+
+    fieldset{
+        .form-group{
+            padding-bottom: 25px;
+            label{
+                margin-bottom: 5px;
+            }
+            .scad-col{
+                margin-bottom: 5px;
+            }
+        }
+        .TitleForm{
+            
+            color: $primaryColor;
+            margin-bottom: 30px;
+        }
+
+        
+    
+        .col-6{
+            padding: 80px;
+    
+        }
+        .inputDescribe{
+            height: 150px;
+        }
+    }
+
+    
+  
+}
+
+
+
+
+
+
+
+@media (max-width: 1000px){
+    .preventiveForm{
+        padding: 100px;
+        margin-top: 200px;
+        padding-left: 100px;
+    
+        .TitleForm{
+            color: $primaryColor;
+            margin-bottom: 20px;
+        }
+        .col-6{
+            background-color: $formEmailBackground;
+            padding: 0px;
+    
+        }
+
+        .colText{
+            font-size: small;
+            position: absolute;
+            padding: 60px;
+        }
+    
+        .inputDescribe{
+            height: 150px;
+        }
+    
+    
+    
+    }
+    
+    
+
+    
+
+}

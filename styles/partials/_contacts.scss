@@ -1,0 +1,70 @@
+@import '../variables.scss';
+
+
+
+.contactForm{
+    padding: 100px;
+    margin-top: 100px;
+    padding-left: 100px;
+
+
+    .TitleForm{
+        
+        color: $primaryColor;
+        margin-bottom: 20px;
+    }
+
+    .col-6{
+        background-color: $formEmailBackground;
+        padding: 80px;
+
+    }
+  
+}
+
+.inputDescribe{
+    height: 150px;
+}
+
+
+
+
+
+@media (max-width: 1000px){
+    .contactForm{
+        
+        //padding: 100px;
+        margin-top: 40px;
+        //padding-left: -40px;
+    
+        .TitleForm{
+            color: $primaryColor;
+            margin-bottom: 20px;
+        }
+        .col-6{
+            background-color: $formEmailBackground;
+            padding: 10px;
+    
+        }
+
+        .colText{
+            font-size: small;
+            z-index: 1;
+            width: 100%;
+            position: relative;
+            .contact-fieldset{
+                //padding: 30px;
+
+            }
+        }
+        .colImage{
+            
+            display: none;
+        }
+      
+    }
+    
+    .inputDescribe{
+        height: 150px;
+    }
+}

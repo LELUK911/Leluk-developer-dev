@@ -1,0 +1,97 @@
+@import "../variables.scss";
+
+
+    
+  .solidity {
+    background-color: $primaryColor;
+    padding-top: 100px;
+    padding-left: 100px;
+    margin-top: 100px;
+    color: whitesmoke;
+
+
+    .language{
+        padding-bottom: 80px;
+    }
+
+    .col-txt {
+      padding-left: 100px;
+    }
+
+    h2 {
+      color: whitesmoke;
+    }
+
+    span {
+      color: $secondaryColor;
+    }
+  }
+
+  .nextJs {
+    color: whitesmoke;
+    padding-top: 100px;
+    padding-bottom: 100px;
+
+
+ 
+
+    .col-txt {
+      padding-left: 10px;
+    }
+
+    .col-logo{
+        padding-left: 100px;
+    }
+
+ 
+
+    span {
+      color: $secondaryColor;
+    }
+  }
+
+
+
+  @media (max-width: 799px){
+    .solidity {
+      padding-top: 100px;
+      padding-left: 10px;
+      margin-top: 100px;
+      h1{
+        margin-left: 20px;
+      }
+      .language{
+          padding-bottom: 80px;
+      }
+      .col-txt {
+        padding-left: 0px;
+        padding-right: 25px;
+      }
+  
+      h2 {
+        color: whitesmoke;
+      }
+  
+      span {
+        color: $secondaryColor;
+      }
+    }
+  
+    .nextJs {
+      color: whitesmoke;
+      padding-top: 100px;
+      padding-bottom: 100px;
+      .col-txt {
+        padding-left: 10px;
+        position: absolute;
+      }
+      .col-logo{
+          margin-left: 0px;
+          
+      }
+      span {
+        color: $secondaryColor;
+      }
+    }
+  }
+

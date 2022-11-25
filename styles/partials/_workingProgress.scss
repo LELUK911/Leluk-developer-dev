@@ -1,0 +1,15 @@
+@import '../variables.scss';
+
+
+.image-div{
+    padding-top: 150px;
+}
+
+
+@media (max-width: 1000px) {
+    .image-div{
+        padding-top: 150px;
+        margin-left: 20px;
+    }
+
+}
