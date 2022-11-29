@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
-import { ThirdwebWeb3Provider } from "@3rdweb/hooks";
+//import { ThirdwebWeb3Provider } from "@3rdweb/hooks";
 import { chainID } from "../fixVariable/Constant";
-
+import { ThirdwebProvider, ChainId } from "@thirdweb-dev/react";
 
 const supportedChainIds=chainID.map(data=>data.id)
 const connectors={
@@ -20,12 +20,12 @@ interface LayoutProps {
 const LayoutEVM: React.FC<LayoutProps> = ({ children }) => {
   return (
     <>
-        <ThirdwebWeb3Provider
-          supportedChainIds={supportedChainIds}
-          connectors={connectors}
+        <ThirdwebProvider
+          supportedChains={supportedChainIds}
+          desiredChainId={1}
         >
         {children}
-        </ThirdwebWeb3Provider>
+        </ThirdwebProvider>
    
     </>
   );
