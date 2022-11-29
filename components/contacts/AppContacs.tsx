@@ -1,38 +1,61 @@
 import Image from "next/image";
+import { useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import { Iemail, Itemplate_email } from "../../type/type";
+import { Iemail} from "../../type/type";
+import AllertSubmit from "../chakraComponent/alert";
 import sendEmail from "./sendEmail";
 
 const AppContacs: React.FC = () => {
-  //dotenv.config()
-  const { register, handleSubmit, watch, formState: { errors } } = useForm();
-  
-  const onSubmit: SubmitHandler<FieldValues> = async (data) =>{
-     console.log(data)
-    const dataEmail:Iemail = {
+ 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const [actionAllert, setActionAllert] = useState<boolean>(false);
+
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    console.log(data);
+    const dataEmail: Iemail = {
       service_id: process.env.NEXT_PUBLIC_SERVICE_ID_EMAIL || "",
-      template_id: process.env.NEXT_PUBLIC_TEMPLATE_ID_EMAIL||"",
-      user_id: process.env.NEXT_PUBLIC_PUBLICK_KEY||"",
+      template_id: process.env.NEXT_PUBLIC_TEMPLATE_ID_EMAIL || "",
+      user_id: process.env.NEXT_PUBLIC_PUBLICK_KEY || "",
       template_params: {
         from_name: data.Name,
-        email :data.Email,
+        email: data.Email,
         object: data.Object,
         describe: data.Describe,
+      },
+    };
 
+    if (!actionAllert) {
+      setActionAllert(true);
+      const res = await sendEmail(dataEmail);
+      if (!res) {
+        alert("email send error");
+        setActionAllert(false);
+        return;
       }
+    } else {
+      setActionAllert(false);
     }
-    await sendEmail(dataEmail)
+    console.log(actionAllert);
+    setTimeout(() => {
+      setActionAllert(false);
+    }, 6000);
   };
 
   return (
     <div className="row  contactForm">
+      {actionAllert && AllertSubmit()}
+
       <div className="col-6 align-center colText">
         <h2 className="TitleForm">Scrivimi un email</h2>
         <form className="contact-fieldset" onSubmit={handleSubmit(onSubmit)}>
-        <div className="mb-3">
+          <div className="mb-3">
             <label className="form-label">Nome / Azienda</label>
             <input
-            {...register("Name")}
+              {...register("Name")}
               type="text"
               className="form-control"
               id="InputName"
@@ -43,7 +66,7 @@ const AppContacs: React.FC = () => {
           <div className="mb-3">
             <label className="form-label">Email</label>
             <input
-            {...register("Email")}
+              {...register("Email")}
               type="email"
               className="form-control"
               id="InputEmail1"
@@ -54,7 +77,7 @@ const AppContacs: React.FC = () => {
           <div className="mb-3">
             <label className="form-label">Oggetto</label>
             <input
-            {...register("Object")}
+              {...register("Object")}
               type="text"
               className="form-control"
               id="InputObject"
@@ -63,16 +86,19 @@ const AppContacs: React.FC = () => {
             />
           </div>
           <div className="form-floating mb-3">
-            
             <textarea
-            {...register("Describe")}
+              {...register("Describe")}
               className="form-control inputDescribe"
               placeholder="Leave a comment here"
               id="floatingTextarea2"
             ></textarea>
-            <label  aria-describedby="floatingTextarea2">Descrizione</label>
+            <label aria-describedby="floatingTextarea2">Descrizione</label>
           </div>
-          <button type="submit" className="btn btn-primary">
+          <button
+            type="submit"
+            disabled={actionAllert}
+            className="btn btn-primary"
+          >
             Invia
           </button>
         </form>
@@ -85,7 +111,6 @@ const AppContacs: React.FC = () => {
           height={500}
           priority
         />
-          
       </div>
     </div>
   );

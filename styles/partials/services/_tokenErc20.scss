@@ -1,0 +1,47 @@
+@import "../../variables.scss";
+
+.token-erc20Area {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  padding-left: 20%;
+  padding-top: 100px;
+  .navbarEVM {
+    background-color: $secondaryColorEVM;
+    color: $primaryBackgroundEVM;
+    margin-bottom: 30px;
+    .connect-button {
+      margin-bottom: 15px;
+      margin-left: 10px;
+      .nav-link {
+        text-align: center;
+        padding: 2px;
+      }
+    }
+  }
+  .box-form{
+    background-color: $primaryColorEVM;
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    padding: 20px;
+    .titleform{
+        padding-bottom: 10px;
+    }
+    .FormErc20standard {
+        display: flex;
+        flex-direction: column;
+        align-items:flex-start;
+        .col-sm-10{
+            margin-left: 10px;
+            padding-bottom: 5px;
+        }
+      }
+    
+  }
+}
+
+@media (max-width: 799px) {
+}
