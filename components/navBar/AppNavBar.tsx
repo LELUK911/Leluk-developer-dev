@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { contacts, preventive, workingProgress } from "../linkAddress/linkAddress";
+import { contacts, creatorTokenERC20, preventive, workingProgress } from "../linkAddress/linkAddress";
 const AppNavBar: React.FC = () => {
   return (
     <nav className="nav-bar fixed-top">
@@ -31,6 +31,15 @@ const AppNavBar: React.FC = () => {
                   >
                     Smartcontract personalizati
                   </Link>
+                </li>
+                <li>
+                  <Link
+                    className="dropdown-item"
+                    href={creatorTokenERC20}
+                    passHref
+                  >
+                    Creazione Token-ERC20
+                  </Link>{" "}
                 </li>
                 <li>
                   <Link

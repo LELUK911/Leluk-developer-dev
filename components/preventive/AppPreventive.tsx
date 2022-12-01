@@ -42,10 +42,9 @@ const AppPreventive: React.FC = () => {
     } else {
       setActionAllert(false);
     }
-    console.log(actionAllert);
-    setTimeout(() => {
+
       setActionAllert(false);
-    }, 500);
+  
   };
   //preventiveForm
   return (

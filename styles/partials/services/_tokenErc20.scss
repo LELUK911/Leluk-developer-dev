@@ -1,5 +1,6 @@
 @import "../../variables.scss";
 
+
 .token-erc20Area {
   position: relative;
   display: flex;
@@ -12,19 +13,12 @@
     background-color: $secondaryColorEVM;
     color: $primaryBackgroundEVM;
     margin-bottom: 30px;
-    .connect-button {
-      margin-bottom: 15px;
-      margin-left: 10px;
-      .nav-link {
-        text-align: center;
-        padding: 2px;
-      }
-    }
+   
   }
   .box-form{
     background-color: $primaryColorEVM;
     display: flex;
-    flex-direction: column;
+    flex-direction: start;
     align-items:center;
     padding: 20px;
     .titleform{
@@ -41,7 +35,97 @@
       }
     
   }
+  .describ-token{
+    padding-top: 20px;
+    padding-bottom: 20px;
+    h2{
+      margin-bottom: 15px;
+    }
+    ul{
+      list-style-type: none;
+      p{
+        padding-left: 20px;
+        text-align: justify;
+      }
+    }
+  }
+  .Plus-service-section{
+    margin-top: 30px;
+    p{
+      padding-left: 20px;
+      text-align: justify;
+    }
+    .Plus-service-section-bt{
+      margin-left: 20px;
+    }
+  }
 }
+@media (max-width: 1000px){
+  
+  .token-erc20Area {
+    position: relative;
+    padding-left: 0px;
+    padding-right: 10px;
+    width: 100%;
+    margin-left: -37px;
 
-@media (max-width: 799px) {
+    .navbarEVM {
+      margin-top: 30px;
+      margin-bottom: 30px;
+      font-size: 15px;
+      h3{
+        font-size: 30px;
+      }
+    }
+
+    .describ-token{
+      padding-top: 20px;
+      padding-bottom: 30px;
+      font-size: 15px;
+      h2{
+        margin-bottom: 10px;
+      }
+      ul{
+        list-style-type: none;
+        p{
+          padding-left: 5px;
+          text-align: justify;
+        }
+      }
+    }
+
+    .box-form{
+      display: flex;
+      flex-direction: start;
+      align-items:center;
+      padding-top: 20px;
+      .titleform{
+          padding-bottom: 10px;
+      }
+      .FormErc20standard {
+          display: flex;
+          flex-direction: column;
+          align-items:flex-start;
+          .col-sm-10{
+              margin-left: 10px;
+              padding-bottom: 5px;
+          }
+      }
+
+      .Plus-service-section{
+        margin-top: 30px;
+        z-index: 1;
+        width: 100%;
+        p{
+          padding-left: 20px;
+          text-align: justify;
+        }
+        .Plus-service-section-bt{
+          margin-left: 20px;
+        }
+      }
+        
+      
+    }
+  }
 }

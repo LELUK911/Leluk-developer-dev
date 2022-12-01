@@ -1,12 +1,11 @@
 import Image from "next/image";
 import { useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import { Iemail} from "../../type/type";
+import { Iemail } from "../../type/type";
 import AllertSubmit from "../chakraComponent/alert";
 import sendEmail from "./sendEmail";
 
 const AppContacs: React.FC = () => {
- 
   const {
     register,
     handleSubmit,
@@ -39,10 +38,8 @@ const AppContacs: React.FC = () => {
     } else {
       setActionAllert(false);
     }
-    console.log(actionAllert);
-    setTimeout(() => {
-      setActionAllert(false);
-    }, 6000);
+
+    setActionAllert(false);
   };
 
   return (
