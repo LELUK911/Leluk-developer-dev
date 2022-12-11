@@ -1,5 +1,5 @@
 import Head from "next/head";
-import AppTokenERC20 from "../../components/creationTokenService/AppTokenERC20";
+import AppTokenERC20 from "../../components/creationTokenService/tokenERC/AppTokenERC20";
 import AppLayout from "../../components/layout/AppLayout";
 import LayoutEVM from "../../components/layout/layoutEVM";
 

@@ -6,9 +6,11 @@ interface LayoutProps {
 }
 
 const LayoutEVM: React.FC<LayoutProps> = ({ children }) => {
-  const desiredChain = ChainId.Mumbai;
+  //const desiredChain = ChainId.Localhost;
+  const desiredChain = ChainId.Goerli;
+  
   return (
-    <ThirdwebProvider desiredChainId={desiredChain}>
+    <ThirdwebProvider desiredChainId={desiredChain} >
      
       {children}
     </ThirdwebProvider>

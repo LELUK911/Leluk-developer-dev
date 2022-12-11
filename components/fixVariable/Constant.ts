@@ -1,8 +1,4 @@
-export const chainID = [
-  { chain: "Ethereum", id: 1 },
-  { chain: "Goerli Test", id: 5 },
-  { chain: "Poligon", id: 137 },
-  { chain: "Avalance", id: 43114 },
-  { chain: "Binance", id: 56 },
-  { chain: "Fantom", id: 250 },
-];
+export const ADDRESS_CREATE_ERC20_GOERLI = '0x34cB4b3fB3EBCeF89427FfDb34f7a54921101704';
+export const ERC_FEES = "0.1";
+
+`string text`
