@@ -15,7 +15,10 @@ const AppFooter: React.FC = () => {
                     </p>
                     <ul className='list'>
                         <li className='list-group-item'>SmartContract Personalizati</li>
-                        <li className='list-group-item'>Creazione Token e Nft</li>
+                        <li className='list-group-item'>
+                            <Link className="link-component" href={'/EVMservices/Erc20'}>Creazione Token ERC-20</Link> 
+                        </li>
+                        <li className='list-group-item'>Creazione NFT</li>
                         <li className='list-group-item'>Creazione Dapp</li>
                         <li className='list-group-item'>Creazione e gestione MultiSig-wallet</li>
                         <li className='list-group-item'>WebApp</li>
@@ -29,7 +32,7 @@ const AppFooter: React.FC = () => {
                     </p>
                     <ul className='list'>
                         <li className='list-group-item'>Fai da te</li>
-                        <li className='list-group-item'>1 to 1</li>
+                   
                     </ul>
                 </div>
             </div>

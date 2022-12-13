@@ -10,10 +10,14 @@ import { TokenEer20form } from "../../../type/type";
 import Abi from "../../../contract/Erc20FixSupply.json";
 import { useAddress, useSDK } from "@thirdweb-dev/react";
 import { ethers } from "ethers";
+import { SmartContract } from "@thirdweb-dev/sdk";
+import { CircularProgress} from "@chakra-ui/react";
 
-const AppTokenERC20 = () => {
-  const [contract, SetContract] = useState<any>();
+const AppTokenERC20: React.FC = () => {
+  const [contract, SetContract] = useState<SmartContract>();
   const [txReceipt, setTxReceipt] = useState<any>("");
+  const [txLoading, setTxLoading] = useState<boolean>(false);
+
   const {
     register,
     handleSubmit,
@@ -51,6 +55,10 @@ const AppTokenERC20 = () => {
 
   const onSubmit: SubmitHandler<TokenEer20form> = async (data) => {
     let functionCall: string;
+    if (!contract) {
+      alert("Problam with contract instance, contact page Administrator");
+      return;
+    }
 
     if (data.RecipientIsConnect && userAddress) {
       data.Recipient = userAddress;
@@ -71,6 +79,7 @@ const AppTokenERC20 = () => {
     }
 
     try {
+      setTxLoading(true);
       const tx = await contract.call(
         functionCall,
         data.Name,
@@ -79,13 +88,29 @@ const AppTokenERC20 = () => {
         data.Recipient,
         { gasLimit: 30000000, value: ethers.utils.parseEther(ERC_FEES) }
       );
-
       setTxReceipt(tx.receipt);
       console.log(txReceipt);
     } catch (error) {
-      alert(error)
+      alert(error);
       console.log(error);
     }
+    setTxLoading(false);
+  };
+
+  const renderButtonNotLoading = () => {
+    return (
+      <button type="submit" className="btn btn-primary">
+        Deploy (fees {ERC_FEES} ETH)
+      </button>
+    );
+  };
+
+  const renderSpinnerLoading = () => {
+    return (
+
+      <CircularProgress isIndeterminate color='blue' />
+    
+    );
   };
 
   return (
@@ -158,7 +183,6 @@ const AppTokenERC20 = () => {
                 type="text"
                 className="form-control"
                 id="nameInput"
-                
               />
             </div>
             <div className="mb-3">
@@ -231,10 +255,8 @@ const AppTokenERC20 = () => {
                 Il destinatario è il wallet connesso
               </label>
             </div>
-
-            <button type="submit" className="btn btn-primary">
-              Deploy (fees {ERC_FEES} ETH)
-            </button>
+            {!txLoading && renderButtonNotLoading()}
+            {txLoading && renderSpinnerLoading()}
           </form>
           <div className="row Plus-service-section">
             <h4>Token personalizzato</h4>
