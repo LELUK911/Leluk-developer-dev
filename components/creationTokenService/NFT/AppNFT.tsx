@@ -1,19 +1,20 @@
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import {
-  ADDRESS_CREATE_ERC20_GOERLI,
-  ERC_FEES,
+  ADDRESS_CREATE_NFT_GOERLI,
+  NFT_FEES,
 } from "../../fixVariable/Constant";
 import AppNavBarEVNM from "../navBar/AppNavBarEVNM";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { TokenEer20form } from "../../../type/type";
-import Abi from "../../../contract/creatorTokenERC.json";
+import { TokenEer721form } from "../../../type/type";
+import Abi from "../../../contract/creatorTokenNFT.json";
 import { useAddress, useSDK } from "@thirdweb-dev/react";
+import { ethers } from "ethers";
 import { SmartContract } from "@thirdweb-dev/sdk";
 import { CircularProgress} from "@chakra-ui/react";
 import { preventive } from "../../linkAddress/linkAddress";
 
-const AppTokenERC20: React.FC = () => {
+const AppNFT: React.FC = () => {
   const [contract, SetContract] = useState<SmartContract>();
   const [txReceipt, setTxReceipt] = useState<any>("");
   const [txLoading, setTxLoading] = useState<boolean>(false);
@@ -22,7 +23,7 @@ const AppTokenERC20: React.FC = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<TokenEer20form>();
+  } = useForm<TokenEer721form>();
   const userAddress = useAddress();
   const sdk = useSDK();
 
@@ -34,7 +35,7 @@ const AppTokenERC20: React.FC = () => {
       }
 
       const contractGet = await sdk.getContractFromAbi(
-        ADDRESS_CREATE_ERC20_GOERLI,
+        ADDRESS_CREATE_NFT_GOERLI,
 
         Abi.abi
       );
@@ -53,40 +54,35 @@ const AppTokenERC20: React.FC = () => {
     }
   }, [txReceipt]);
 
-  const onSubmit: SubmitHandler<TokenEer20form> = async (data) => {
+  const onSubmit: SubmitHandler<TokenEer721form> = async (data) => {
     let functionCall: string;
     if (!contract) {
-      alert("Problam with contract instance, contact page Administrator");
+      alert("Problem with contract instance, contact page Administrator");
       return;
     }
+
+
+    if(data.Pausable == true){
+      functionCall = 'createNftProStoURIburnalblePausable'
+    }else{
+      functionCall = 'createNftProStoURIburnalble'
+    }
+
 
     if (data.RecipientIsConnect && userAddress) {
       data.Recipient = userAddress;
     }
 
-    if (data.TypeSupply === "fix") {
-      if (data.Pausable == false) {
-        functionCall = "createFixSupply";
-      } else {
-        functionCall = "createFixSupplyPausable";
-      }
-    } else {
-      if (data.Pausable == false) {
-        functionCall = "createVariableSupply";
-      } else {
-        functionCall = "createVariableSupplyPausable";
-      }
-    }
 
     try {
       setTxLoading(true);
       const tx = await contract.call(
         functionCall,
+        data.Recipient,
         data.Name,
         data.Ticker,
-        data.Supply,
-        data.Recipient,
-        { gasLimit: 30000000, value: ERC_FEES }
+      
+        { gasLimit: 30000000, value: NFT_FEES }
       );
       setTxReceipt(tx.receipt);
       console.log(txReceipt);
@@ -100,7 +96,7 @@ const AppTokenERC20: React.FC = () => {
   const renderButtonNotLoading = () => {
     return (
       <button type="submit" className="btn btn-primary">
-        Deploy (fees {ERC_FEES.toString()} ETH)
+        Deploy (fees {NFT_FEES.toString()} ETH)
       </button>
     );
   };
@@ -119,44 +115,43 @@ const AppTokenERC20: React.FC = () => {
 
       <div className="describ-token">
         <h1>In alpha su Goerli tesnet</h1>
-        <h2>Token ERC-20</h2>
+        <h2>Not fungible token (ERC-721)</h2>
         <ul>
           <li>
             <h5>Definizione</h5>
             <p>
-              Per token ERC-20 si intende precisamente la standardardizzazione
-              dei contratti che regolano i token(monete) circolanto sulla
-              blockchain, basti pensare che il fatto che tutti i token ERC-20
-              condividono le identiche funzionalità di base, ne rende possibile
-              la facile implementazione nelle varie piattaforme Defi o più
-              semplicemente nei vari scambi di risorse digitali
+              Un token non fungibile (NFT)
+              viene utilizzato per catalogare in delle informazioni in 
+              modo univoco. Questo tipo di token è perfetto per 
+              essere utilizzato su piattaforme che offrono oggetti da collezione,
+              chiavi di accesso, biglietti della lotteria, posti numerati per concerti
+              e partite sportive, ecc.
             </p>
           </li>
           <li>
             <h5>Utilizzi comuni</h5>
             <p>
-              I token ERC-20 sono dei token fungibili, quindi ogni unita di
-              questi token è esattamente uguale, e non è possibile attribuire
-              funzioni o diritti speciali a singole unità del token; Ciò rende i
-              token ERC20 utili per cose come valuta per scambi, diritto di voto
-              relazionato alla quantita di token posseduti, oppure lo steaking.
+              Come gia citato nella definizione, gli NFT offrono innumerevoli possibilità al loro utilizzo,
+              di fatti oltre ai classici oggetti da collezione , questi possono rappresentare vere e proprie 
+              prove di proprieta di un oggetto fisico, o ancora possono contenere delle istanze notarili che 
+              necessitano di essere pubbliche e sempre accessibili oltre che immutabili.
             </p>
           </li>
           <li>
             <h5>Codice</h5>
             <p>
-              Per la creazione del Token verrà utilizato il contratto di
-              <Link href="https://docs.openzeppelin.com/contracts/4.x/erc20">
+              Per la creazione del NFT verrà utilizato il contratto di
+              <Link href="https://docs.openzeppelin.com/contracts/4.x/erc721">
                 OpenZeppelin
               </Link>
               , che oltre ad essere auditato, rappresenta un altissimo standar
-              di codice open-source.
+              come codice open-source.
             </p>
           </li>
           <li>
             <h5>Rischi</h5>
             <p>
-              Seppur lo standar ERC-20 e i contratti di OpenZeppelin
+              Seppur lo standar ERC-721 e i contratti di OpenZeppelin
               rappresentano un solido standard, bisogna comprendere che ogni
               contratto su blockchain può essere pontenzialmente rischioso, ed
               espone a rischi il wallet che interaggisce con esso. I rischi in
@@ -172,7 +167,7 @@ const AppTokenERC20: React.FC = () => {
       </div>
       <div className="box-form">
         <div className="col-10">
-          <h2 className="titleform">Token ERC-20</h2>
+          <h2 className="titleform">Non fungible token ERC-721</h2>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="mb-3">
               <label htmlFor="nameInput" className="form-label">
@@ -196,29 +191,7 @@ const AppTokenERC20: React.FC = () => {
                 id="tickerInput"
               />
             </div>
-            <div className="mb-3">
-              <label htmlFor="supplyInput" className="form-label">
-                Max Circolante
-              </label>
-              <input
-                {...register("Supply")}
-                type="number"
-                className="form-control"
-                id="supplyInput"
-              />
-            </div>
-
-            <div className="mb-3">
-              <label className="form-label">Circolante</label>
-              <select
-                {...register("TypeSupply")}
-                className="form-select"
-                aria-label="Default select example"
-              >
-                <option value="fix">fisso</option>
-                <option value="var">variabile</option>
-              </select>
-            </div>
+       
 
             <div className="mb-3 form-check">
               <input
@@ -259,10 +232,12 @@ const AppTokenERC20: React.FC = () => {
             {txLoading && renderSpinnerLoading()}
           </form>
           <div className="row Plus-service-section">
-            <h4>Token personalizzato</h4>
+            <h4>NFT personalizzato</h4>
             <p>
-              Se necessiti di un token con funzioni customizzate, oppure di un
-              infrastruttura che utilizzi il tuo token ERC-20 contattami per un
+              La complessità e versatilità nella loro applicazione, rende gli NFT
+              degli asset digitali altamente personalizzabili,
+              Se necessiti di funzioni customizzate, oppure di un
+              infrastruttura che utilizzi NFT contattami per un
               preventivo.
             </p>
             <div className="col6">
@@ -281,4 +256,4 @@ const AppTokenERC20: React.FC = () => {
     </div>
   );
 };
-export default AppTokenERC20;
+export default AppNFT;

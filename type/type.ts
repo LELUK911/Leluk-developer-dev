@@ -46,3 +46,13 @@ export interface TokenEer20form {
   Ticker: string;
   TypeSupply: string;
 }
+
+
+export interface TokenEer721form {
+  Name: string;
+  Pausable: boolean;
+  Recipient: string;
+  RecipientIsConnect: boolean;
+  Ticker: string;
+ 
+}

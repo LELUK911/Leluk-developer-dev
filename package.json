@@ -12,6 +12,7 @@
     "@chakra-ui/react": "^2.4.1",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
+    "@next/bundle-analyzer": "^13.0.6",
     "@thirdweb-dev/react": "^3.6.6",
     "@thirdweb-dev/sdk": "^3.6.6",
     "@types/node": "18.11.9",

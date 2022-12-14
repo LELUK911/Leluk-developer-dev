@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { contacts, creatorTokenERC20, preventive, workingProgress } from "../linkAddress/linkAddress";
+import { contacts, creatorNft, creatorTokenERC20, preventive, workingProgress } from "../linkAddress/linkAddress";
 const AppNavBar: React.FC = () => {
   return (
     <nav className="nav-bar fixed-top">
@@ -38,16 +38,16 @@ const AppNavBar: React.FC = () => {
                     href={creatorTokenERC20}
                     passHref
                   >
-                    Creazione Token-ERC20
+                    Creazione Token ERC-20
                   </Link>{" "}
                 </li>
                 <li>
                   <Link
                     className="dropdown-item"
-                    href={workingProgress}
+                    href={creatorNft}
                     passHref
                   >
-                    Creazione Token e Nft
+                    Creazione Nft ERC-721
                   </Link>{" "}
                 </li>
                 <li>
