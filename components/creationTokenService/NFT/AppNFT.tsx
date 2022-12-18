@@ -2,45 +2,70 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import {
   ADDRESS_CREATE_NFT_GOERLI,
+  ADDRESS_CREATE_NFT_MUMBAI,
   NFT_FEES,
+  GOERLI_SCAN,
+  MUMBAI_SCAN,
 } from "../../fixVariable/Constant";
 import AppNavBarEVNM from "../navBar/AppNavBarEVNM";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { TokenEer721form } from "../../../type/type";
 import Abi from "../../../contract/creatorTokenNFT.json";
-import { useAddress, useSDK } from "@thirdweb-dev/react";
+import { useAddress, useChainId, useSDK } from "@thirdweb-dev/react";
 import { ethers } from "ethers";
 import { SmartContract } from "@thirdweb-dev/sdk";
 import { CircularProgress} from "@chakra-ui/react";
 import { preventive } from "../../linkAddress/linkAddress";
+import GitContractButton from "../helper/GitContractButton";
+import HelperButton from "../helper/HelperButton";
 
 const AppNFT: React.FC = () => {
   const [contract, SetContract] = useState<SmartContract>();
   const [txReceipt, setTxReceipt] = useState<any>("");
   const [txLoading, setTxLoading] = useState<boolean>(false);
-
+  const [scan, setScan] = useState<string>("");
+  const [token, setToken] = useState<string>();
+ 
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<TokenEer721form>();
   const userAddress = useAddress();
+  const chainId = useChainId();
   const sdk = useSDK();
 
   useEffect(() => {
     const getContract = async () => {
       if (!sdk) {
-        console.log("non va ");
+    
         return;
       }
 
-      const contractGet = await sdk.getContractFromAbi(
-        ADDRESS_CREATE_NFT_GOERLI,
+     
+      if (chainId === 5) {
+        const contractGet = await sdk.getContractFromAbi(
+          ADDRESS_CREATE_NFT_GOERLI,
+  
+          Abi.abi
+        );
+        setScan(GOERLI_SCAN);
+        SetContract(contractGet);
+      }
+      if (chainId === 80001) {
+        const contractGet = await sdk.getContractFromAbi(
+          ADDRESS_CREATE_NFT_MUMBAI,
+  
+          Abi.abi
+        );
+        setScan(MUMBAI_SCAN);
+        SetContract(contractGet);
+      }
 
-        Abi.abi
-      );
 
-      SetContract(contractGet);
+
+
+  
     };
 
     getContract();
@@ -49,7 +74,8 @@ const AppNFT: React.FC = () => {
   useEffect(() => {
     if (txReceipt !== "") {
       alert(`
-      transaction submit success https://goerli.etherscan.io/tx/${txReceipt.transactionHash}
+      transaction submit success ${scan}${txReceipt.transactionHash} ,
+      Address Token: ${token}
       `);
     }
   }, [txReceipt]);
@@ -82,8 +108,10 @@ const AppNFT: React.FC = () => {
         data.Name,
         data.Ticker,
       
-        { gasLimit: 30000000, value: NFT_FEES }
+        { value: ethers.utils.parseEther(NFT_FEES) }
       );
+     
+      setToken(tx.receipt.events[2].args.nft);
       setTxReceipt(tx.receipt);
       console.log(txReceipt);
     } catch (error) {
@@ -109,12 +137,23 @@ const AppNFT: React.FC = () => {
     );
   };
 
+
+  const renderAddressNextDeploy = () => {
+    return (
+      <div className="row">
+        <p className="address-token">
+        <strong>Address Nft contract :  </strong>
+           {token}</p>
+      </div>
+    );
+  };
+
   return (
     <div className="row token-erc20Area">
       <AppNavBarEVNM />
 
       <div className="describ-token">
-        <h1>In alpha su Goerli tesnet</h1>
+        <h1>In alpha su Goerli & Mumbai tesnet</h1>
         <h2>Not fungible token (ERC-721)</h2>
         <ul>
           <li>
@@ -230,6 +269,10 @@ const AppNFT: React.FC = () => {
             </div>
             {!txLoading && renderButtonNotLoading()}
             {txLoading && renderSpinnerLoading()}
+            <GitContractButton />
+            <HelperButton />
+            {token && renderAddressNextDeploy()}
+          
           </form>
           <div className="row Plus-service-section">
             <h4>NFT personalizzato</h4>

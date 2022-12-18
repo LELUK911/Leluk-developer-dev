@@ -2,21 +2,29 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import {
   ADDRESS_CREATE_ERC20_GOERLI,
+  ADDRESS_CREATE_ERC20_MUMBAI,
   ERC_FEES,
+  GOERLI_SCAN,
+  MUMBAI_SCAN,
 } from "../../fixVariable/Constant";
 import AppNavBarEVNM from "../navBar/AppNavBarEVNM";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { TokenEer20form } from "../../../type/type";
 import Abi from "../../../contract/creatorTokenERC.json";
-import { useAddress, useSDK } from "@thirdweb-dev/react";
+import { useAddress, useChainId, useSDK } from "@thirdweb-dev/react";
 import { SmartContract } from "@thirdweb-dev/sdk";
-import { CircularProgress} from "@chakra-ui/react";
+import { CircularProgress } from "@chakra-ui/react";
 import { preventive } from "../../linkAddress/linkAddress";
+import { ethers } from "ethers";
+import HelperButton from "../helper/HelperButton";
+import GitContractButton from "../helper/GitContractButton";
 
 const AppTokenERC20: React.FC = () => {
   const [contract, SetContract] = useState<SmartContract>();
   const [txReceipt, setTxReceipt] = useState<any>("");
   const [txLoading, setTxLoading] = useState<boolean>(false);
+  const [scan, setScan] = useState<string>("");
+  const [token, setToken] = useState<string>();
 
   const {
     register,
@@ -24,31 +32,46 @@ const AppTokenERC20: React.FC = () => {
     formState: { errors },
   } = useForm<TokenEer20form>();
   const userAddress = useAddress();
+  const chainId = useChainId();
   const sdk = useSDK();
 
   useEffect(() => {
     const getContract = async () => {
       if (!sdk) {
-        console.log("non va ");
+       
         return;
       }
+      let contractGet;
+      if (chainId === 5) {
+        contractGet = await sdk.getContractFromAbi(
+          ADDRESS_CREATE_ERC20_GOERLI,
 
-      const contractGet = await sdk.getContractFromAbi(
-        ADDRESS_CREATE_ERC20_GOERLI,
+          Abi.abi
+        );
 
-        Abi.abi
-      );
+        setScan(GOERLI_SCAN);
+      }
+      if (chainId === 80001) {
+        contractGet = await sdk.getContractFromAbi(
+          ADDRESS_CREATE_ERC20_MUMBAI,
+
+          Abi.abi
+        );
+        setScan(MUMBAI_SCAN);
+      }
 
       SetContract(contractGet);
     };
 
     getContract();
+
   });
 
   useEffect(() => {
     if (txReceipt !== "") {
       alert(`
-      transaction submit success https://goerli.etherscan.io/tx/${txReceipt.transactionHash}
+      transaction submit success ${scan}${txReceipt.transactionHash} ,
+      Address Token: ${token}
       `);
     }
   }, [txReceipt]);
@@ -56,7 +79,7 @@ const AppTokenERC20: React.FC = () => {
   const onSubmit: SubmitHandler<TokenEer20form> = async (data) => {
     let functionCall: string;
     if (!contract) {
-      alert("Problam with contract instance, contact page Administrator");
+      alert("Problem with contract instance, contact page Administrator");
       return;
     }
 
@@ -86,8 +109,9 @@ const AppTokenERC20: React.FC = () => {
         data.Ticker,
         data.Supply,
         data.Recipient,
-        { gasLimit: 30000000, value: ERC_FEES }
+        { value: ethers.utils.parseEther(ERC_FEES) }
       );
+      setToken(tx.receipt.events[1].args.token);
       setTxReceipt(tx.receipt);
       console.log(txReceipt);
     } catch (error) {
@@ -100,16 +124,22 @@ const AppTokenERC20: React.FC = () => {
   const renderButtonNotLoading = () => {
     return (
       <button type="submit" className="btn btn-primary">
-        Deploy (fees {ERC_FEES.toString()} ETH)
+        Deploy (fees {ERC_FEES} ETH)
       </button>
     );
   };
 
   const renderSpinnerLoading = () => {
-    return (
+    return <CircularProgress isIndeterminate color="blue" />;
+  };
 
-      <CircularProgress isIndeterminate color='blue' />
-    
+  const renderAddressNextDeploy = () => {
+    return (
+      <div className="row">
+        <p className="address-token">
+        <strong>Address token :  </strong>
+           {token}</p>
+      </div>
     );
   };
 
@@ -118,7 +148,7 @@ const AppTokenERC20: React.FC = () => {
       <AppNavBarEVNM />
 
       <div className="describ-token">
-        <h1>In alpha su Goerli tesnet</h1>
+        <h1>In alpha su Goerli & Mumbai tesnet</h1>
         <h2>Token ERC-20</h2>
         <ul>
           <li>
@@ -257,6 +287,9 @@ const AppTokenERC20: React.FC = () => {
             </div>
             {!txLoading && renderButtonNotLoading()}
             {txLoading && renderSpinnerLoading()}
+            <GitContractButton />
+            <HelperButton />
+            {token && renderAddressNextDeploy()}
           </form>
           <div className="row Plus-service-section">
             <h4>Token personalizzato</h4>
