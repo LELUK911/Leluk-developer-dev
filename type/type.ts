@@ -56,3 +56,9 @@ export interface TokenEer721form {
   Ticker: string;
  
 }
+
+
+export interface TokenErc20TypeInterface{
+  Supply:string;
+  Pausable:string
+}

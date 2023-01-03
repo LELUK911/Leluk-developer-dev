@@ -18,6 +18,7 @@ import { preventive } from "../../linkAddress/linkAddress";
 import { ethers } from "ethers";
 import HelperButton from "../helper/HelperButton";
 import GitContractButton from "../helper/GitContractButton";
+import IntertactWithERC20 from "./AppinteractToken";
 
 const AppTokenERC20: React.FC = () => {
   const [contract, SetContract] = useState<SmartContract>();
@@ -136,9 +137,13 @@ const AppTokenERC20: React.FC = () => {
   const renderAddressNextDeploy = () => {
     return (
       <div className="row">
-        <p className="address-token">
+        <div className="row"><p className="address-token">
         <strong>Address token :  </strong>
-           {token}</p>
+           {token}</p></div>
+        <div className="row">
+          <IntertactWithERC20/>
+        </div>
+        
       </div>
     );
   };
@@ -306,7 +311,9 @@ const AppTokenERC20: React.FC = () => {
                 >
                   Contattami
                 </button>
+                
               </Link>
+              <IntertactWithERC20/>
             </div>
           </div>
         </div>
