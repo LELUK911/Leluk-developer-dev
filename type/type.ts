@@ -62,3 +62,8 @@ export interface TokenErc20TypeInterface{
   Supply:string;
   Pausable:string
 }
+
+
+export interface TokenErc721TypeInterface{
+  Pausable:string
+}

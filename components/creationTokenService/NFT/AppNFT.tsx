@@ -18,6 +18,7 @@ import { CircularProgress} from "@chakra-ui/react";
 import { preventive } from "../../linkAddress/linkAddress";
 import GitContractButton from "../helper/GitContractButton";
 import HelperButton from "../helper/HelperButton";
+import AppInteractNftContract from "./AppInteractNftContract";
 
 const AppNFT: React.FC = () => {
   const [contract, SetContract] = useState<SmartContract>();
@@ -293,6 +294,7 @@ const AppNFT: React.FC = () => {
                 </button>
               </Link>
             </div>
+            <AppInteractNftContract/>
           </div>
         </div>
       </div>

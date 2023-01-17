@@ -139,7 +139,10 @@ const IntertactWithERC20: React.FC = () => {
     }
     try {
       const bigNamount = ethers.utils.parseEther(amount.toString())
-      await contract.call('mint',toAddress,bigNamount.toString())//,{gasLimit:500000})
+
+ 
+      await contract.call('mint',toAddress,bigNamount.toString(),{gasLimit:400000})
+ 
       
     } catch (error) {
       alert(error)
